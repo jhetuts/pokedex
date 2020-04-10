@@ -1,0 +1,113 @@
+.PokemonSlider {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+        width: 0px; 
+        background: transparent;
+        height: 8px;
+        
+        @media screen and (max-width: 767px) {
+            height: 4px;
+        }
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #e75247;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    li {
+        position: relative;
+        height: 200px;
+        width: 200px;
+        margin: 20px 20px 50px 20px;
+        -webkit-perspective: 1200px;
+        -moz-perspective: 1200px;
+        -ms-perspective: 1200px;
+        -o-perspective: 1200px;
+        perspective: 1200px;
+        -webkit-perspective-origin: 50% 50%;
+        -moz-perspective-origin: 50% 50%;
+        -ms-perspective-origin: 50% 50%;
+        -o-perspective-origin: 50% 50%;
+        perspective-origin: 50% 50%;
+        cursor: pointer;
+        
+        article {
+            display: inline-block;
+            position: relative;
+            margin: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 50% 120%, #ccc, #fff 10%, #9d1211 80%, #460909 100%);
+            padding: 10px;
+            // display: block;
+            // background: black;
+            // margin: 0;
+            // border-radius: 50%;
+            // background: radial-gradient(circle at 100px 100px, #fff, #9d1211);
+            @media screen and (max-width: 767px) {
+                margin: 5px;
+            }
+            h3 {
+                display: none;
+                position: absolute;
+                right: 20px;
+                bottom: 0;
+                text-transform: uppercase;
+                padding: 5px;
+                background: rgba(53, 106, 189, 0.71);
+                color: #ffcc03;
+            }
+            img {
+                display: block;
+                width: 100%;
+                filter: brightness(0);
+            }
+            .shadow {
+                position: absolute;
+                background: radial-gradient(50% 50%, #ccc 0%, #fff 100%);
+                height: 20px;
+                width: 100%;
+                z-index: -1;
+                left: 0;
+                right: 0;
+                bottom: -20px;
+                margin: auto;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                top: 1%;
+                left: 5%;
+                width: 90%;
+                height: 90%;
+                border-radius: 50%;
+                background: radial-gradient(circle at 50% 0px, #ffffff, rgba(255, 255, 255, 0) 58%);
+                filter: blur(5px);
+                z-index: 2;
+              }
+        }
+        &:hover {
+            img {
+                filter: brightness(1);
+            }
+        }
+        @media screen and (max-width: 767px) {
+            height: auto;
+            width: 33.33%;
+            margin: 0 0 20px 0;
+        }
+    }
+}
+.PokemonSlider.active {
+    background: rgba(255,255,255,0.3);
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+    transform: scale(1);
+  }

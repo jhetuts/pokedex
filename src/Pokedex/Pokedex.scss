@@ -1,0 +1,19 @@
+.Pokedex {
+    overflow: hidden;
+    max-width: 1366px;
+    margin: auto;
+    padding: 20px;
+    h1 {
+        width: 250px;
+        margin-bottom: 20px;
+        img {
+            width: 100%;
+            display: block;
+        }
+    }
+    h1.fixed {
+        position: fixed;
+        top: 10px;
+        z-index: 1;
+    }
+}
