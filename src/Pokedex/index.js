@@ -20,19 +20,23 @@ class PokedexApp extends Component {
         pokemons: ''
     }
 
-    componentDidMount() {
-        window.addEventListener('scroll', this.fixedMenu);
-    }
+    // componentDidMount() {
+    //     window.addEventListener('scroll', this.fixedMenu);
+    // }
 
-    fixedMenu = () => {
-        const h1 = document.querySelector('.logo');
-        const hHeight = h1.offsetHeight;   
-        h1.classList.remove('fixed')
+    // componentWillMount() {
+    //     window.removeEventListener('scroll', this.fixedMenu);
+    // }
 
-        if (window.scrollY > hHeight) {
-            h1.classList.add('fixed')
-        }
-    }
+    // fixedMenu = () => {
+    //     const h1 = document.querySelector('.logo');
+    //     const hHeight = h1.offsetHeight;   
+    //     h1.classList.remove('fixed')
+
+    //     if (window.scrollY > hHeight) {
+    //         h1.classList.add('fixed')
+    //     }
+    // }
 
     render() {
         return (

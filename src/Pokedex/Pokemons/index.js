@@ -37,7 +37,7 @@ class Pokemons extends Component {
         }
     }
 
-    loadMore = e => {
+    loadMore = () => {
         const limit =  this.state.limit * this.state.pokemonList.length;
         this.getList(limit);
     }
@@ -50,8 +50,6 @@ class Pokemons extends Component {
         const windowBottom = windowHeight + window.pageYOffset;
         if (windowBottom >= docHeight) {
             this.loadMore();
-        } else {
-            console.log('not yet bottom');
         }
     }
 

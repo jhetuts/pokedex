@@ -1,69 +1,59 @@
 import React, { Component } from 'react'
 import './PokemonSlider.scss';
 import LazyLoadImage from '../../../components/LazyLoadImage';
+import ModalContainer from '../../../components/ModalContainer';
 
 const POKE_API_IMG = 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/';
 
 class PokemonSlider extends Component {
-   isDown = false;
-   startX = 0;
-   scrollLeft = 0;
+    state = {
+        openModal: false,
+        pokemon: '',
+        pokemonId: '',
+        imageSrc: '',
+    }
 
     padToThree = num => num <= 999 ? `00${num}`.slice(-3) : num;
 
-    handleMouseDown = e => {
-        this.isDown = true;
-        e.target.classList.add('active');
-        this.startX = e.pageX - e.target.offsetLeft;
-        this.scrollLeft = e.target.scrollLeft;
-    }
-
-    handleMouseLeave = e => {
-        this.isDown = false;
-        e.target.classList.remove('active');
-    }
-
-    hanldeMouseUp = e => {
-        this.isDown = false;
-        e.target.classList.remove('active');
-    }
-
-    handleMouseMove = e => {
-        if(!this.isDown) return;
-        e.preventDefault();
-        const x = e.pageX - e.target.offsetLeft;
-        const walk = (x - this.startX) * 3; //scroll-fast
-        e.target.scrollLeft = this.scrollLeft - walk;
-        console.log(walk);
+    handleClick = (e, pokemonId, name, src) => {
+        this.setState({
+            openModal: true,
+            pokemon: name,
+            pokemonId: pokemonId,
+            imageSrc: src
+        });
     }
 
     render() {
-        
         const { pokemons }  = this.props;
-        const li = pokemons.map((pokemon, index) => {
+
+        const li = pokemons.map(pokemon => {
             const parts = pokemon.url.split('/')
             const pokeId = parts.pop() || parts.pop();
+            const imgSrc = `${POKE_API_IMG}${this.padToThree(pokeId)}.png`;
+
             return (
-                <li key={pokemon.name} url={pokemon.url}>
+                <li key={pokemon.name} onClick={(e) => this.handleClick(e, pokeId, pokemon.name, imgSrc)}>
                     <article>
                         <h3>{pokemon.name}</h3>
-                        <LazyLoadImage src={`${POKE_API_IMG}${this.padToThree(pokeId)}.png`} />
+                        <LazyLoadImage alt={pokemon.name} src={imgSrc} />
                         <span className="shadow"></span>
                     </article>
                 </li>
             )
         })
         return (
-            <ul
-                className="PokemonSlider"
-                id={this.props.id}
-                onMouseDown={this.handleMouseDown}
-                onMouseLeave={this.handleMouseLeave}
-                onMouseUp={this.hanldeMouseUp}
-                onMouseMove={this.handleMouseMove}
-            >
-                {li}
-            </ul>
+            <div className="PokemonSlider-wrap">
+                <ul className="PokemonSlider" id={this.props.id}>
+                    {li}
+                </ul>
+                {this.state.openModal && 
+                <ModalContainer
+                    pokemonId={this.props.pokemonId}
+                    openModal={this.state.openModal}
+                    pokemon={this.state.pokemon}
+                    imgScr={this.state.imageSrc} />}
+            </div>
         )
     }
 }

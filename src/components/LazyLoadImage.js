@@ -43,8 +43,11 @@ class LazyLoadImage extends Component {
         window.addEventListener("resize", lazyLoad);
         window.addEventListener("orientationchange", lazyLoad);
     }
+    componentDidUpdate() {
+        // console.log(this.props)
+    }
     render() {
-        return <img className="lazy" src={loader} data-src={this.props.src} data-srcset={this.props.src}/>
+        return <img className="lazy" src={loader} data-src={this.props.src} data-srcset={this.props.src} alt={this.props.alt}/>
     }
 }
 export default LazyLoadImage;

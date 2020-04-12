@@ -21,13 +21,6 @@ class Generations extends Component {
                     loading: !this.state.loading,
                     generations: res.results
                 });
-
-                res.results.map(gen => {
-                    p.getGenerationByName(gen.name)
-                    .then(res => console.log(res))
-                    .catch(err => console.log(err));
-                })
-
             }
         })
     }
